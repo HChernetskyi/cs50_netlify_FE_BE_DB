@@ -3,7 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <title>Main page</title>
+    <title>Chores</title>
+    
 <style>
     body {
         background-image: url('./static/fridge.png');
@@ -12,26 +13,41 @@
         background-size: cover;
     }
 </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-    Hello, world!
-  <div>
-      <p>POST email and pass from form</p>
-      <form name="form-save-post" action="/save" method="post" autocomplete="off">
-          <input type="email" name="user-email" placeholder="Email">
-          <input type="password" name="user-password" placeholder="Password">
-          <button type="submit" name="button">Send</button>
+    
+    <body>
+    
+  <div class="container">
+      <form class="todo-form">
+        <input
+          type="text"
+          id="todoInput"
+          placeholder="What's the plan today?"
+        />
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+        </button>
       </form>
-  </div>
+      <div id="statusText"></div>
+      <ul id="todoList"></ul>
+    </div>
 
-  <div>
-      <p>Start now and get <b>best</b> chores job</span></p>
-      <form name="form-load-get" action="/hello" method="get" autocomplete="off">
-          <input type="email" name="user-email" placeholder="Email">
-          <input type="text" name="name" placeholder="Name">
-          <button type="submit" name="button">Hello</button>
-      </form>
-  </div>
+    <script src="script.js"></script>
 
-</body>
+    </body>
 </html>
