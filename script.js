@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-const supabase = createClient('https://db.ieyfgpklmrjyydtduzqd.supabase.co', '2023_Supabase')
+const supabase = createClient('https://ieyfgpklmrjyydtduzqd.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleWZncGtsbXJqeXlkdGR1enFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTU3MzM2NzAsImV4cCI6MjAxMTMwOTY3MH0.Aj88UhsBJ6NjJQW3Wfw6Z0mqfLFkkb9tIM22HYapJcI')
 const todoList = document.getElementById("todoList");
 
 const { jobs, error } = await supabase
@@ -10,16 +10,7 @@ renderTodos();
 
 function renderTodos() {
   todoList.innerHTML = "";
-
-  jobs.forEach((todo) => {
-    const li = document.createElement("li");
-    li.classList.add("todo-item");
-
-    const span = document.createElement("span");
-    span.textContent = todo.text;
-
-    li.appendChild(span);
-
-    todoList.appendChild(li);
+   todoList.innerHTML += "Hello World!";
+  
   });
 }
