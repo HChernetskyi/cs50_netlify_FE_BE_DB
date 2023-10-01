@@ -36,7 +36,7 @@ function renderTodos() {
     const xmlns = "http://www.w3.org/2000/svg";
 
     const btn = document.createElementNS(xmlns, "svg");
-    btn.setAttribute("viewBox", "0 0 2 2");
+    btn.setAttribute("viewBox", "0 0 24 24");
     btn.classList.add("remove-button");
     btn.addEventListener("click", () => removeTodo(todo.id));
 
