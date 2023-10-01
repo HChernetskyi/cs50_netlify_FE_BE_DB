@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "supabase": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest"
+  }
+}
