@@ -1,5 +1,5 @@
 // Import the Supabase client
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "supabase";
 
 // Initialize the client with your Supabase URL and public anon key
 const supabase = createClient(
