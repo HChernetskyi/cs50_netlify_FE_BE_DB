@@ -1,5 +1,6 @@
 // Import the Supabase client
-import { createClient } from "supabase";
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@latest'
+
 
 // Initialize the client with your Supabase URL and public anon key
 const supabase = createClient(
