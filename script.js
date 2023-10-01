@@ -2,6 +2,7 @@
 renderTodos();
 
 function renderTodos() {
-  todoList.innerHTML = "";
-   todoList.innerHTML = "Hello World!";
+  import { createClient } from "@supabase/supabase-js";
+  todoList.innerHTML += "";
+  todoList.innerHTML += "Hello World!";
 }
