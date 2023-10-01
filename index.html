@@ -18,43 +18,18 @@
 </head>
     
     <body>
+        <noscript>
+          You need to enable JavaScript to run this app.
+        </noscript>
+        
     <!-- Add a menu:
    Log in / Sign up - when the user is not logged in
    Username / Log out - when the user is logged in
   -->
   <div data-netlify-identity-menu></div>
-
-  <!-- Add a simpler button:
-    Simple button that will open the modal.
-  -->
-  <div data-netlify-identity-button>Login with Netlify Identity</div>
         
   <div class="container">
-      <form class="todo-form">
-        <input
-          type="text"
-          id="todoInput"
-          placeholder="What's the plan today?"
-        />
-        <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-        </button>
-      </form>
-      <div id="statusText"></div>
+
       <ul id="todoList"></ul>
     </div>
 
