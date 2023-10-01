@@ -1,36 +1,14 @@
 <!DOCTYPE html>
-<html class="chrome windows desktop page-ready page-loaded">
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <title>Chores</title>
-    <!-- include the widget -->
-    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    
-<style>
-    body {
-        background-image: url('./static/fridge.png');
-        background-repeat: repeat-y;
-        background-attachment: scroll;
-        background-size: cover;
-    }
-</style>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css">
 </head>
-    <body>
-        <noscript>
-          You need to enable JavaScript to run this app.
-        </noscript>
-        
-        <!-- Add a menu:
-       Log in / Sign up - when the user is not logged in
-       Username / Log out - when the user is logged in
-      -->
-      <div data-netlify-identity-menu></div>
-        
-      <div class="container"><ul id="todoList"></ul></div>
-
+<body>
+    <form id="todo-form">
+        <input type="text" id="todo-input" placeholder="Enter a to-do item">
+        <button type="submit">Add to-do</button>
+    </form>
+    <ul id="todo-list"></ul>
     <script src="script.js"></script>
-    </body>
+</body>
 </html>
