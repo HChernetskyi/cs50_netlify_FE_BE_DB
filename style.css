@@ -10,3 +10,11 @@ form {
 input {
     margin-right: 1em;
 }
+
+.navDiv {
+  height: 30em !important;
+  background-size:     cover;                      
+  background-repeat:   no-repeat;
+  background-position: center center;        
+}
+
