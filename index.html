@@ -1,15 +1,52 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@latest"></script>
-</head>
-<body>
-    <form id="todo-form">
-        <input type="text" id="todo-input" placeholder="Enter a to-do item">
-        <button type="submit">Add to-do</button>
-    </form>
-    <ul id="todo-list"></ul>
-    <script src="script.js"></script>
-</body>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Simple TO-DO</title>
+        <link href="/static/favicon.ico" rel="icon">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link href="/static/styles.css" rel="stylesheet">
+        <style>
+            body {
+                background-image: url('./static/fridge.png');
+                background-repeat: repeat-y;
+                background-attachment: scroll;
+                background-size: cover;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="bg-light border navbar navbar-expand-md navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Simple TO-DO</a>
+                <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar">
+                    {% if session["user_id"] %}
+                        <ul class="navbar-nav me-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/add">Add</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/statistics">Statistics</a></li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/logout">Log Out (as {{ session["user_name"] }} )</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="navbar-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        {% block body %}{% endblock %}
+        <main class="container-fluid py-5 text-center">
+            {% block main %}{% endblock %}
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    </body>
 </html>
