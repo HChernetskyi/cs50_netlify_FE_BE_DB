@@ -40,7 +40,7 @@
                             <li>
                                 <a href="/page3">Page3</a>
                             </li>
-                            <li id="log-button" onClick="netlifyIdentity.open();">
+                            <li id="log-button-desktop" onClick="netlifyIdentity.open();">
                                 <a>Login</a>
                             </li>
                             <li id="user-name">USER_NAME</li>
@@ -62,11 +62,11 @@
                 <li>
                     <a href="/Page3">Page3</a>
                 </li>
-                <li onClick={this.openIdentityWidget}>
+                <li id="log-button-mobile" onClick="netlifyIdentity.open();">
                     <a>Login</a>
                 </li>
             </ul>
-    <div class="main text" id=text-change></div>        
+    <div class="main text" id="text-change"></div>        
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script type="text/javascript">
@@ -76,8 +76,8 @@
     </script>
             <script>
                 const userCred = netlifyIdentity.currentUser();
-                const userName = document.getElementById("user-name");
-                userName.innerHTML = userCred.user_metadata.name || UserCred.email;
+                const userName = document.getElementById("text-change");
+                userName.innerHTML = UserCred.email;
             </script>
     </body>
 </html>
