@@ -75,9 +75,9 @@
         })
     </script>
             <script>
-                const user = netlifyIdentity.currentUser();
+                const userCred = netlifyIdentity.currentUser();
                 const userName = document.getElementById("user-name");
-                userName.innerHTML = user.email;
+                userName.innerHTML = userCred.user_metadata.name || UserCred.email;
             </script>
     </body>
 </html>
