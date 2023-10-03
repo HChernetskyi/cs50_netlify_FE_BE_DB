@@ -38,7 +38,7 @@
                                 <a href="/page2">Page2</a>
                             </li>
                             <li>
-                                <a href="/page3">Page3</a>
+                                <a href="/login">login</a>
                             </li>
                             <li id="log-button-desktop" onClick="netlifyIdentity.open();">
                                 <a>Login</a>
@@ -73,11 +73,6 @@
         $(document).ready(function () {
             $(".button-collapse").sideNav();
         })
-    </script>
-            <script>
-                const userCred = netlifyIdentity.currentUser();
-                const userName = document.getElementById("text-change");
-                userName.innerHTML = UserCred.email;
-            </script>
+    
     </body>
 </html>
