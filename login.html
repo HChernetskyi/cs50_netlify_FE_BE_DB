@@ -77,11 +77,11 @@
             <script type="text/javascript">
                 const user = netlifyIdentity.currentUser();
                 if (user) {
-                  const text = document.getElementById("user-name");
+                  const text = document.getElementById("text-change");
                   text.innerHTML = "USER on!";
                 }
                  if (!user) {
-                  const text = document.getElementById("user-name");
+                  const text = document.getElementById("text-change");
                   text.innerHTML += " USER off!";
                 }
                   
