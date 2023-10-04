@@ -40,7 +40,7 @@
                             <li>
                                 <a href="/login">login</a>
                             </li>
-                            <li id="log-button-desktop" onClick="netlifyIdentity.open();">
+                            <li id="log-button-desktop" onClick="netlifyIdentity.open("login");">
                                 <a>Login</a>
                             </li>
                             <li id="user-name">USER_NAME</li>
@@ -62,17 +62,42 @@
                 <li>
                     <a href="/Page3">Page3</a>
                 </li>
-                <li id="log-button-mobile" onClick="netlifyIdentity.open();">
-                    <a>Login</a>
+                <li id="log-button-mobile" onClick="netlifyIdentity.open("signup");">
+                    <a>Sign-up</a>
                 </li>
             </ul>
-    <div class="main text" id="text-change"></div>        
+            
+    <div class="main text" id="text-change"></div>   
+            
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+            
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".button-collapse").sideNav();
+            $(".button-collapse").sideNav(); 
         })
-    
+    </script>
+            
+    <script type="text/javascript">
+        import netlifyIdentity from "netlify-identity-widget";
+
+        export function handler(event, context, callback) {
+          const user = window.localStorage.getItem("gotrue.user");
+            const text = document.getElementById("text-change");
+            const user_name = document.getElementById("user-name");      
+          if (user) {
+            // User is logged in, perform your action here
+            // Your script goes here
+              text.innerHTML += ", USER on!";
+              user_name.innerHTML = user.user_metadata("full_name");
+          } else {
+            // User is not logged in, handle accordingly
+              text.innerHTML += ", USER OFF!";
+              user_name.innerHTML = "USER OFF!";
+          }
+        }
+    </script>
+            
     </body>
 </html>
