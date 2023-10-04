@@ -75,7 +75,12 @@
         })
     </script>
             <script type="text/javascript">
+                netlifyIdentity.init({
+                  container: '#netlify-modal', // defaults to document.body
+                  locale: 'en' // defaults to 'en'
+                });
                 const user = netlifyIdentity.currentUser();
+                
                 if (user) {
                   const text = document.getElementById("text-change");
                   text.innerHTML = "USER on!";
