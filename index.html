@@ -81,22 +81,20 @@
             
     <script type="text/javascript">
         import netlifyIdentity from "netlify-identity-widget";
-
-        export function handler(event, context, callback) {
-          const user = window.localStorage.getItem("gotrue.user");
-            const text = document.getElementById("text-change");
-            const user_name = document.getElementById("user-name");      
+        const text = document.getElementById("text-change");
+        const user_name = document.getElementById("user-name");
+        netlifyIdentity.on("init", user => {
           if (user) {
-            // User is logged in, perform your action here
-            // Your script goes here
+            console.log('User Email: ', user.email);
+            console.log('User Name: ', user.user_metadata.full_name);
               text.innerHTML += ", USER on!";
-              user_name.innerHTML = user.user_metadata("full_name");
+              user_name.innerHTML = user.user_metadata.full_name;
           } else {
             // User is not logged in, handle accordingly
               text.innerHTML += ", USER OFF!";
               user_name.innerHTML = "USER OFF!";
-          }
-        }
+            });
+
     </script>
             
     </body>
