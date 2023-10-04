@@ -6,13 +6,19 @@
 </head>
 <body>
   <h1>Welcome to my site</h1>
+  <h2 id="textForChange">Hello, </h2>
    <div data-netlify-identity-button>Login with Netlify Identity</div>
   <script>
     if (window.netlifyIdentity) {
+      const text = document.getElementById("textForChange");
+                  
       window.netlifyIdentity.on("init", user => {
         if (user) {
           console.log('User Email: ', user.email);
           console.log('User Name: ', user.user_metadata.full_name);
+          text.innerHTML = user.user_metadata.full_name;
+        } else {
+          text.innerHTML = "not logged in.";
         }
       });
     }
