@@ -80,8 +80,20 @@
     </script>
             
     <script type="text/javascript">
-        import netlifyIdentity from "netlify-identity-widget";
-        const text = document.getElementById("text-change");
+        if (window.netlifyIdentity) {
+          const text = document.getElementById("text-change");
+                  
+              window.netlifyIdentity.on("init", user => {
+                if (user) {
+                  console.log('User Email: ', user.email);
+                  console.log('User Name: ', user.user_metadata.full_name);
+                  text.innerHTML += user.user_metadata.full_name;
+                } else {
+                  text.innerHTML += "not logged in.";
+                }
+              });
+        }
+        
         const user_name = document.getElementById("user-name");
         netlifyIdentity.on("init", user => {
           if (user) {
@@ -94,7 +106,7 @@
               text.innerHTML += ", USER OFF!";
               user_name.innerHTML = "USER OFF!";
             });
-
+    location.reload();
     </script>
             
     </body>
