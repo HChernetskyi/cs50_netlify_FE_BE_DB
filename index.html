@@ -29,18 +29,9 @@
                             <i class="material-icons">Mobile menu</i>
                         </a>
                         <ul class="right hide-on-med-and-down">
-                            <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="/page1">Page1</a>
-                            </li>
-                            <li>
-                                <a href="/page2">Page2</a>
-                            </li>
-                            <li>
-                                <a href="/login">To login page</a>
-                            </li>
+                            <li> <a href="/">Home</a> </li>
+                            <li> <a href="/page1">Page1</a> </li>
+                            <li> <a href="/login">Login page</a> </li>
                             <li id="log-button-desktop" onClick="netlifyIdentity.open();">
                                 <a>Login</a>
                             </li>
@@ -50,15 +41,13 @@
                 </nav>
             </div>
             <ul class="side-nav" id="mobile-demo">
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
-                    <a href="/page1">Page1</a>
-                </li>
+                <li> <a href="/">Home</a> </li>
+                <li> <a href="/page1">Page1</a> </li>
+                <li> <a href="/login">Login Page</a> </li>
                 <li id="log-button-mobile" onClick="netlifyIdentity.open();">
                     <a>SIGN-UP</a>
                 </li>
+                <li id="user-name">USER_NAME</li>
             </ul>
             
     <div class="main text" id="text-change">Some text before login...</div>   
@@ -76,15 +65,15 @@
     
 <script>
     if (window.netlifyIdentity) {
-      const text = document.getElementById("text-change");
+      const text = document.getElementById("user-name");
                   
       window.netlifyIdentity.on("init", user => {
         if (user) {
-          console.log('User Email: ', user.email);
-          console.log('User Name: ', user.user_metadata.full_name);
-          text.innerHTML += user.user_metadata.full_name;
+          // console.log('User Email: ', user.email);
+          // console.log('User Name: ', user.user_metadata.full_name);
+          text.innerHTML = user.user_metadata.full_name;
         } else {
-          text.innerHTML += "not logged in.";
+          text.innerHTML = "Not logged in";
         }
       });
     }
