@@ -8,7 +8,7 @@
         <link href="/static/favicon.ico" rel="icon">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
         <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-        <link href="/static/styles.css" rel="stylesheet">
+        <link href="/static/style.css" rel="stylesheet">
         <style>
             body {
                 background-image: url('./static/fridge.png');
@@ -25,46 +25,26 @@
                 <nav>
                     <div class="nav-wrapper blue darken-3">
                         <a href="#" data-activates="mobile-demo" class="button-collapse">
-                            <i class="material-icons">menu</i>
+                            <i class="material-icons">Menu</i>
                         </a>
                         <ul class="right hide-on-med-and-down">
-                            <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="/page1">Page1</a>
-                            </li>
-                            <li>
-                                <a href="/page2">Page2</a>
-                            </li>
-                            <li>
-                                <a href="/page3">Page3</a>
-                            </li>
+                            <li> <a href="/">Home</a> </li>
+                            <li> <a href="/page1">Page1</a> </li>                            
                             <li id="log-button-desktop" onClick="netlifyIdentity.open();">
                                 <a>Login</a>
                             </li>
-                            <li id="user-name">USER_NAME</li>
+                            <li id="user-name">Desktop_USER_NAME</li>
                         </ul>
                     </div>
                 </nav>
             </div>
             <ul class="side-nav" id="mobile-demo">
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li>
-                    <a href="/page1">Page1</a>
-                </li>
-                
-                <li>
-                    <a href="/page2">Page2</a>
-                </li>
-                <li>
-                    <a href="/Page3">Page3</a>
-                </li>
+                <li> <a href="/">Home</a> </li>
+                <li> <a href="/page1">Page1</a> </li>                
                 <li id="log-button-mobile" onClick="netlifyIdentity.open();">
                     <a>Login</a>
                 </li>
+                <li id="user-name">Mobile_USER_NAME</li>
             </ul>
     <div class="main text" id="text-change">main text in body...</div>        
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -73,23 +53,22 @@
         $(document).ready(function () {
             $(".button-collapse").sideNav();
         })
-    </script>
-            <script type="text/javascript">
-                netlifyIdentity.init({
-                  container: '#netlify-modal', // defaults to document.body
-                  locale: 'en' // defaults to 'en'
-                });
-                const user = netlifyIdentity.currentUser();
-                
-                if (user) {
-                  const text = document.getElementById("text-change");
-                  text.innerHTML = "USER on!";
-                }
-                 if (!user) {
-                  const text = document.getElementById("text-change");
-                  text.innerHTML += " USER off!";
-                }
+    
+    <script>
+    if (window.netlifyIdentity) {
+      const text = document.getElementById("user-name");
                   
-            </script>
+      window.netlifyIdentity.on("init", user => {
+        if (user) {
+          // console.log('User Email: ', user.email);
+          // console.log('User Name: ', user.user_metadata.full_name);
+          text.innerHTML += user.user_metadata.full_name;
+        } else {
+          text.innerHTML += "Not logged in";
+        }
+      });
+    }
+    
+  </script>
     </body>
 </html>
