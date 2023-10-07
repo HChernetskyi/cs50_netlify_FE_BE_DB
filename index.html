@@ -25,7 +25,7 @@
                 <nav>
                     <div class="nav-wrapper blue darken-3">
                         <a href="#" data-activates="mobile-demo" class="button-collapse">
-                            <i class="material-icons">menu</i>
+                            <i class="material-icons">Mobile menu</i>
                         </a>
                         <ul class="right hide-on-med-and-down">
                             <li>
@@ -40,8 +40,8 @@
                             <li>
                                 <a href="/login">To login page</a>
                             </li>
-                            <li id="log-button-desktop" onClick="netlifyIdentity.open("login");">
-                                <a>Login by Identify</a>
+                            <li id="log-button-desktop" onClick="netlifyIdentity.open();">
+                                <a>LOGIN</a>
                             </li>
                             <li id="user-name">USER_NAME</li>
                         </ul>
@@ -55,15 +55,8 @@
                 <li>
                     <a href="/page1">Page1</a>
                 </li>
-                
-                <li>
-                    <a href="/page2">Page2</a>
-                </li>
-                <li>
-                    <a href="/page3">Page3</a>
-                </li>
-                <li id="log-button-mobile" onClick="netlifyIdentity.open("signup");">
-                    <a>Sign-up by Identify</a>
+                <li id="log-button-mobile" onClick="netlifyIdentity.open();">
+                    <a>SIGN-UP</a>
                 </li>
             </ul>
             
@@ -79,36 +72,23 @@
         })
     </script>
             
-    <script type="text/javascript">
-        if (window.netlifyIdentity) {
-          const text = document.getElementById("text-change");
+    
+<script>
+    if (window.netlifyIdentity) {
+      const text = document.getElementById("text-change");
                   
-              window.netlifyIdentity.on("init", user => {
-                if (user) {
-                  console.log('User Email: ', user.email);
-                  console.log('User Name: ', user.user_metadata.full_name);
-                  text.innerHTML += user.user_metadata.full_name;
-                } else {
-                  text.innerHTML += "not logged in.";
-                }
-              });
+      window.netlifyIdentity.on("init", user => {
+        if (user) {
+          console.log('User Email: ', user.email);
+          console.log('User Name: ', user.user_metadata.full_name);
+          text.innerHTML += user.user_metadata.full_name;
+        } else {
+          text.innerHTML += "not logged in.";
         }
-        
-        const user_name = document.getElementById("user-name");
-        netlifyIdentity.on("init", user => {
-          if (user) {
-            console.log('User Email: ', user.email);
-            console.log('User Name: ', user.user_metadata.full_name);
-              text.innerHTML += ", USER on!";
-              user_name.innerHTML = user.user_metadata.full_name;
-          } else {
-            // User is not logged in, handle accordingly
-              text.innerHTML += ", USER OFF!";
-              user_name.innerHTML = "USER OFF!";
-            };
-            location.reload();
-        );
-    </script>
+      });
+    }
+    location.reload();
+  </script>
             
     </body>
 </html>
