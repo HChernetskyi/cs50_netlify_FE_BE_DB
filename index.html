@@ -35,7 +35,7 @@
                             <li id="log-button-desktop" onClick="netlifyIdentity.open();">
                                 <a>Login</a>
                             </li>
-                            <li id="user-name">USER_NAME</li>
+                            <li id="user-name-desktop">User: </li>
                         </ul>
                     </div>
                 </nav>
@@ -47,7 +47,7 @@
                 <li id="log-button-mobile" onClick="netlifyIdentity.open();">
                     <a>SIGN-UP</a>
                 </li>
-                <li id="user-name">USER_NAME</li>
+                <li id="user-name">User: </li>
             </ul>
             
     <div class="main text" id="text-change">Some text before login...</div>   
@@ -65,15 +65,16 @@
     
 <script>
     if (window.netlifyIdentity) {
-      const text = document.getElementById("user-name");
-                  
+      const menu_user_name_desktop = document.getElementById("user-name-desktop");
+      const menu_user_name_mobile = document.getElementById("user-name-mobile");            
       window.netlifyIdentity.on("init", user => {
         if (user) {
           // console.log('User Email: ', user.email);
           // console.log('User Name: ', user.user_metadata.full_name);
-          text.innerHTML = user.user_metadata.full_name;
+          menu_user_name_desktop.innerHTML += user.user_metadata.full_name;
+          menu_user_name_mobile.innerHTML += user.user_metadata.full_name;
         } else {
-          text.innerHTML = "Not logged in";
+          // text.innerHTML = "Not logged in";
         }
       });
     }
