@@ -67,13 +67,16 @@
 <script>
     if (window.netlifyIdentity) {
       const menu_user_name_desktop = document.getElementById("user-name-desktop");
-      const menu_user_name_mobile = document.getElementById("user-name-mobile");            
+      const menu_user_name_mobile = document.getElementById("user-name-mobile"); 
+      const menu_login_name_desktop = document.getElementById("log-button-desktop");
+      const menu_login_name_mobile = document.getElementById("log-button-mobile");
       window.netlifyIdentity.on("init", user => {
         if (user) {
           // console.log('User Email: ', user.email);
           // console.log('User Name: ', user.user_metadata.full_name);
-          menu_user_name_desktop.innerHTML += user.user_metadata.full_name;
-          menu_user_name_mobile.innerHTML += user.user_metadata.full_name;
+          menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerHTML += user.user_metadata.full_name;           
+          menu_login_name_desktop.innerHTML = menu_login_name_mobile.innerHTML = "Log out";
+
         } else {
           // text.innerHTML = "Not logged in";
             menu_user_name_desktop.innerHTML += "not logged in";
