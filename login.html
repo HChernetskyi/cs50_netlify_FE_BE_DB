@@ -26,16 +26,18 @@
                 <nav>
                     <div class="nav-wrapper blue darken-3">
                         <a href="#" data-activates="mobile-demo" class="button-collapse">
-                            <i class="material-icons">Mobile menu</i>
+                            <i class="material-icons">Menu</i>
                         </a>
+                        <ul class="left hide-on-med-and-down">
+                            <li id="user-name-desktop">User: </li>
+                        </ul>
                         <ul class="right hide-on-med-and-down">
                             <li> <a href="/">Home</a> </li>
                             <li> <a href="/page1">Page1</a> </li>
                             <li> <a href="/login">Login page</a> </li>
                             <li id="log-button-desktop" onClick="netlifyIdentity.open();">
-                                <a>Login</a>
-                            </li>
-                            <li id="user-name-desktop">User: </li>
+                                <a>Log in</a>
+                            </li>                            
                         </ul>
                     </div>
                 </nav>
@@ -45,7 +47,7 @@
                 <li> <a href="/page1">Page1</a> </li>
                 <li> <a href="/login">Login Page</a> </li>
                 <li id="log-button-mobile" onClick="netlifyIdentity.open();">
-                    <a>SIGN-UP</a>
+                    <a>Log in</a>
                 </li>
                 <li id="user-name-mobile">User: </li>
             </ul>
@@ -60,8 +62,7 @@
         $(document).ready(function () {
             $(".button-collapse").sideNav(); 
         })
-    </script>
-            
+    </script>            
     
 <script>
     if (window.netlifyIdentity) {
@@ -75,10 +76,11 @@
           menu_user_name_mobile.innerHTML += user.user_metadata.full_name;
         } else {
           // text.innerHTML = "Not logged in";
+            menu_user_name_desktop.innerHTML += "not logged in";
+            menu_user_name_mobile.innerHTML += "not logged in";
         }
       });
     }
-    
   </script>
             
     </body>
