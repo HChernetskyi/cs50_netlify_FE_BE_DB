@@ -14,15 +14,15 @@
                   
       window.netlifyIdentity.on("init", user => {
         if (user) {
-          console.log('User Email: ', user.email);
-          console.log('User Name: ', user.user_metadata.full_name);
-          text.innerHTML = user.user_metadata.full_name;
+          //console.log('User Email: ', user.email);
+          //console.log('User Name: ', user.user_metadata.full_name);
+          text.innerHTML += user.user_metadata.full_name;
         } else {
-          text.innerHTML = "not logged in.";
+          text.innerHTML += "not logged in.";
         }
       });
     }
-    location.reload();
+    //location.reload();
   </script>
 </body>
 </html>
