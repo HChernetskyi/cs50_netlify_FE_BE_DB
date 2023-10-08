@@ -34,8 +34,31 @@
 <script>
     const { createClient } = supabase;
     const _supabase = createClient('https://ieyfgpklmrjyydtduzqd.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleWZncGtsbXJqeXlkdGR1enFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTU3MzM2NzAsImV4cCI6MjAxMTMwOTY3MH0.Aj88UhsBJ6NjJQW3Wfw6Z0mqfLFkkb9tIM22HYapJcI');
-
     console.log('Supabase Instance: ', _supabase);
-    // ...
+    // get jobs from DB
+    const fetchTodos = async () => {
+        let { error, data } = await supabase.from('jobs').select().order('id');
+        if (error) {
+            console.log(error.message);
+            return;
+        }
+        //setTodos(data);
+    }
+    //generate list of todos
+    tasks.innerHTML = "";
+    data.map((x, y) => {
+        return (tasks.innerHTML += `
+        <div id=${y}>
+          <span class="fw-bold">${x.id}</span>
+          <span class="small text-secondary">${x.created_at}</span>
+          <p>${x.description}</p>
+  
+          <span class="options">
+            // <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit"></i>
+            // <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt"></i>
+          </span>
+        </div>
+    `);
+
 </script>
 </html>
