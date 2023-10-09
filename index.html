@@ -46,19 +46,19 @@
     }
     //generate list of todos
     tasks.innerHTML = "";
-    data.map((x, y) => {
-        return (tasks.innerHTML += `
-        <div id=${y}>
-          <span class="fw-bold">${x.id}</span>
-          <span class="small text-secondary">${x.created_at}</span>
-          <p>${x.description}</p>
+    data.forEach((d) => { tasks.innerHTML += `
+        <div id=d.id>
+          <span class="fw-bold">d.id</span>
+          <span class="small text-secondary">d.created_at</span>
+          <p>d.description</p>
   
           <span class="options">
             // <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit"></i>
             // <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt"></i>
           </span>
         </div>
-    `);
+    `};
+    );
 
 </script>
 </html>
