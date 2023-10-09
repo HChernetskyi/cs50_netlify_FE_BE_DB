@@ -45,19 +45,16 @@
         //setTodos(data);
     }
     //generate list of todos
+    let tasks = document.getElementById("tasks");
     tasks.innerHTML = "";
-    data.forEach((d) => { tasks.innerHTML += `
-        <div id=d.id>
-          <span class="fw-bold">d.id</span>
-          <span class="small text-secondary">d.created_at</span>
-          <p>d.description</p>
-  
-          <span class="options">
-            // <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit"></i>
-            // <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt"></i>
-          </span>
-        </div>
-    `});
+
+  data.forEach((d) => {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    span.textContent = todo.description;
+    li.appendChild(span);
+    tasks.appendChild(li);
+  });
 
 </script>
 </html>
