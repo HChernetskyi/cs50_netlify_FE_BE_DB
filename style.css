@@ -18,27 +18,12 @@ input {
   background-position: center center;        
 }
 
-#tasks {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
+table, th, td {
+    border: 1px solid whitesmoke;
+    border-collapse: collapse;
+    border-radius: 10px;
 }
 
-#tasks div {
-    border: 3px solid #abcea1;
-    background-color: #e2eede;
-    border-radius: 6px;
-    padding: 5px;
-    display: grid;
-    gap: 4px;
-}
-
-#tasks div .options {
-    justify-self: center;
-    display: flex;
-    gap: 20px;
-}
-
-#tasks div .options i {
-    cursor: pointer;
+tr:nth-child(even) {
+    background-color: #D6EEEE;
 }
