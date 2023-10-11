@@ -13,20 +13,54 @@
     <style>
         body {
             background-image: url('./static/fridge.png');
-            background-repeat: repeat-y;
-            background-attachment: scroll;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             background-size: cover;
         }
     </style>
 </head>
-    <body>
-        <!-- List of tasks -->
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper blue darken-3">
+            <a href="#" data-activates="mobile-demo" class="button-collapse">
+                <i class="material-icons">Menu</i>
+            </a>
+            <ul class="left hide-on-med-and-down">
+                <li id="user-name-desktop">Logged as: </li>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li> <a href="/">Home</a> </li>
+                <li id="log-button-desktop" onClick="netlifyIdentity.open();">
+                    <a>Log in</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<ul class="side-nav" id="mobile-demo">
+    <li> <a href="/">Home</a> </li>
+    <li id="log-button-mobile" onClick="netlifyIdentity.open();">
+        <a>Log in</a>
+    </li>
+    <li id="user-name-mobile">Logged as: </li>
+</ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".button-collapse").sideNav();
+    })
+</script>
+
+<body>
+    <!-- List of tasks -->
     <h5 class="text-center my-3">Tasks</h5>
     <!-- div for list by script -->
-    <div id="tasks"></div>
+<div id="tasks"></div>
 
-    </body>
-    <!-- div for list by script -->
-    <script src="main.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+</body>
+<!-- div for list by script -->
+<script src="main.js"></script>
 
 </html>

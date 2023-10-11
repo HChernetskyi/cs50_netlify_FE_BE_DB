@@ -13,7 +13,7 @@ td, th {
 }
 
 thead, th {
-    background-color: #dddddd;
+    background-color: darkorange;
     text-align: center;
 }
 
@@ -27,6 +27,6 @@ tr:hover {
 }
 
 #job_status_id_progress {
-    color: darkorange;
+    color: fuchsia;
     font-weight: bold;
 }
