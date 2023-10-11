@@ -18,3 +18,12 @@ input {
   background-position: center center;        
 }
 
+table, th, td {
+    border: 1px solid whitesmoke;
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
