@@ -1,29 +1,32 @@
-body {
-    font-family: Arial, sans-serif;
-}
-
-form {
-    margin-bottom: 1em;
-}
-
-
-input {
-    margin-right: 1em;
-}
-
-.navDiv {
-  height: 30em !important;
-  background-size:     cover;                      
-  background-repeat:   no-repeat;
-  background-position: center center;        
-}
-
-table, th, td {
-    border: 1px solid whitesmoke;
+table {
+    font-family: arial, sans-serif;
     border-collapse: collapse;
-    border-radius: 10px;
+    width: 100%;
+    position: absolute;
+    opacity: 1;
 }
 
-tr:nth-child(even) {
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+thead, th {
+    background-color: #dddddd;
+    text-align: center;
+}
+
+tr:hover {
     background-color: #D6EEEE;
+}
+
+#job_status_id_done {
+    color: chartreuse;
+    font-weight: bold;
+}
+
+#job_status_id_progress {
+    color: darkorange;
+    font-weight: bold;
 }
