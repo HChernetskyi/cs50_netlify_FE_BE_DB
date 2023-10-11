@@ -24,6 +24,7 @@ tr:hover {
 #job_status_id_done {
     color: chartreuse;
     font-weight: bold;
+    text-align: right;
 }
 
 #job_status_id_progress {

@@ -19,47 +19,95 @@
         }
     </style>
 </head>
-<div class="navbar-fixed">
-    <nav>
-        <div class="nav-wrapper blue darken-3">
-            <a href="#" data-activates="mobile-demo" class="button-collapse">
-                <i class="material-icons">Menu</i>
-            </a>
-            <ul class="left hide-on-med-and-down">
-                <li id="user-name-desktop">Logged as: </li>
-            </ul>
-            <ul class="right hide-on-med-and-down">
-                <li> <a href="/">Home</a> </li>
-                <li id="log-button-desktop" onClick="netlifyIdentity.open();">
-                    <a>Log in</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-<ul class="side-nav" id="mobile-demo">
-    <li> <a href="/">Home</a> </li>
-    <li id="log-button-mobile" onClick="netlifyIdentity.open();">
-        <a>Log in</a>
-    </li>
-    <li id="user-name-mobile">Logged as: </li>
-</ul>
 
+<body>
+
+<div class="navDiv">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper blue darken-3">
+                <a href="#" data-activates="mobile-demo" class="button-collapse">
+                    <i class="material-icons">Menu</i>
+                </a>
+                <ul class="left hide-on-med-and-down">
+                    <li id="user-name-desktop">Logged as: viewer</li>
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/page1">Page1</a>
+                    </li>
+                    <li>
+                        <a href="/page1">Page2</a>
+                    </li>
+                    <li>
+                        <a href="/page1">Page3</a>
+                    </li>
+                    <li id = "log-button-desktop" onClick="netlifyIdentity.open();">
+                        <a>Login</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <ul class="side-nav" id="mobile-demo">
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="/page1">Page1</a>
+        </li>
+        <li>
+            <a href="/page1">Page2</a>
+        </li>
+        <li>
+            <a href="/page1">Page3</a>
+        </li>
+        <li id="log-in-button-mobile" onClick="netlifyIdentity.open();">
+            <a>Login</a>
+        </li>
+        <li id="user-name-mobile">Logged as: viewer</li>
+    </ul>
+</div>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $(".button-collapse").sideNav();
     })
 </script>
 
-<body>
-    <!-- List of tasks -->
-    <h5 class="text-center my-3">Tasks</h5>
-    <!-- div for list by script -->
+<!-- List of tasks -->
+<h5 class="text-center my-3">Tasks</h5>
+<!-- div for list by script -->
 <div id="tasks"></div>
 
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
 </body>
+
+<!-- script for user name and LogIn\LogOut-->
+<script>
+    if (window.netlifyIdentity) {
+        const menu_user_name_desktop = document.getElementById("user-name-desktop");
+        const menu_user_name_mobile = document.getElementById("user-name-mobile");
+        const menu_login_name_desktop = document.getElementById("log-button-desktop");
+        const menu_login_name_mobile = document.getElementById("log-in-button-mobile");
+        window.netlifyIdentity.on("login", user => {
+            if (user) {
+                menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerHTML = "Logged as: " + user.user_metadata.full_name;
+                menu_login_name_desktop.innerHTML = menu_login_name_mobile.innerText = "Log out";
+            }
+        });
+        window.netlifyIdentity.on("logout", user => {
+            if (!user) {
+                menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerText = "Logged as: viewer";
+                menu_login_name_desktop.innerHTML = menu_login_name_mobile.innerText = "Login";
+            }
+        });
+    }
+</script>
+
 <!-- div for list by script -->
 <script src="main.js"></script>
 
