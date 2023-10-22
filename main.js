@@ -1,54 +1,104 @@
-const { createClient } = supabase;
-const _supabase = createClient('https://ieyfgpklmrjyydtduzqd.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleWZncGtsbXJqeXlkdGR1enFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTU3MzM2NzAsImV4cCI6MjAxMTMwOTY3MH0.Aj88UhsBJ6NjJQW3Wfw6Z0mqfLFkkb9tIM22HYapJcI');
+//let { createClient } = supabase;
+//let _supabase = createClient('https://ieyfgpklmrjyydtduzqd.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleWZncGtsbXJqeXlkdGR1enFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTU3MzM2NzAsImV4cCI6MjAxMTMwOTY3MH0.Aj88UhsBJ6NjJQW3Wfw6Z0mqfLFkkb9tIM22HYapJcI');
+
 //console.log('Supabase Instance: ', _supabase);
 
+let form = document.getElementById("form");
+let textInput = document.getElementById("textInput");
+let dateInput = document.getElementById("dateInput");
+let textarea = document.getElementById("textarea");
+let msg = document.getElementById("msg");
 let tasks = document.getElementById("tasks");
-//tasks.innerText = "inner text";
+let add = document.getElementById("add");
 
-async function getTodos() {
-    let { data, error } = await _supabase.from('jobs').select();
-    let jobStatus = 'In progress...';
-    let job_status_id = 'job_status_id_progress';
-    let html =
-        `<table>
-            <thead> 
-                <tr>
-                    <th>Job created by</th>
-                    <th>Description</th>
-                    <th>For</th>
-                    <th>Created</th>
-                    <th>Status</th>
-                </tr>
-                
-            </thead>
-        `;
-    for (const d of data) {
-        html +=
-            `<tr>
-                <td>${d.created}</td>
-                <td>${d.description}</td>
-                <td>${d.for}</td>
-                <td>${d.created_at}</td>`;
-                if (d.status) {
-                    jobStatus = 'Done.';
-                    job_status_id = 'job_status_id_done';
-                }
-                    
-            html += `
-                <td id=${job_status_id}>${jobStatus}</td>
-            </tr>`;
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    formValidation();
+});
+
+let formValidation = () => {
+    if (textInput.value === "") {
+        console.log("Field FOR is blank.");
+        //msg.innerHTML = "Please, choose the executor :)";
+        textInput.placeholder.style = " color: red; "
+        textInput.placeholder = "Please, choose the executor :)";
+    } else {
+        console.log("success");
+        msg.innerHTML = " ";
+        acceptData();
+        add.setAttribute("data-bs-dismiss", "modal");
+        add.click();
+
+        (() => {
+            add.setAttribute("data-bs-dismiss", "");
+        })();
     }
-    html += `</table>`;
-    tasks.innerHTML += html;
-        
+};
 
-    
-}
+let data = [{}];
 
-//getTodos().then((data) => {
+let acceptData = () => {
+    //data.push({
+    //    text: textInput.value,
+    //    date: dateInput.value,
+    //    description: textarea.value,
+    //});
+
+    //localStorage.setItem("data", JSON.stringify(data));
+
     //console.log(data);
-//});
-// call function to get data from DB
-getTodos();
+    //createTasks();
+};
 
+let createTasks = () => {
+    tasks.innerHTML = "";
+    //data.map((x, y) => {
+    //    return (tasks.innerHTML += `
+    //<div id=${y}>
+    //      <span class="fw-bold">${x.text}</span>
+    //      <span class="small text-secondary">${x.date}</span>
+    //      <p>${x.description}</p>
+  
+    //      <span class="options">
+    //        <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit"></i>
+    //        <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt"></i>
+    //      </span>
+    //    </div>
+    //`);
+    //});
+    tasks.innerHTML += `
+        <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit"></i>
+        <i onClick ="deleteTask(this); createTasks()" class="fas fa-trash-alt"></i>
+        `;
+    resetForm();
+};
 
+let deleteTask = (e) => {
+    e.parentElement.parentElement.remove();
+    //data.splice(e.parentElement.parentElement.id, 1);
+    //localStorage.setItem("data", JSON.stringify(data));
+    //console.log(data);
+
+};
+
+let editTask = (e) => {
+    let selectedTask = e.parentElement.parentElement;
+
+    textInput.value = selectedTask.children[0].innerHTML;
+    dateInput.value = selectedTask.children[1].innerHTML;
+    textarea.value = selectedTask.children[2].innerHTML;
+
+    deleteTask(e);
+};
+
+let resetForm = () => {
+    textInput.value = "";
+    dateInput.value = "";
+    textarea.value = "";
+};
+
+(() => {
+    //data = JSON.parse(localStorage.getItem("data")) || []
+    //console.log(data);
+    createTasks();
+})();

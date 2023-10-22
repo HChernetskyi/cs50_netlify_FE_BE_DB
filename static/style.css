@@ -25,9 +25,28 @@ tr:hover {
     color: chartreuse;
     font-weight: bold;
     text-align: right;
+    transition: 1s;
 }
 
 #job_status_id_progress {
     color: fuchsia;
     font-weight: bold;
+    
+}
+
+#job_status_id_progress:hover {
+    text-align: center;
+    transition: 2s;
+    transform: scale(1.5);
+}
+
+.fa-plus {
+    background-color: #abcea1;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.modal {
+    max-height: 100%;
+    background-color: revert;
 }

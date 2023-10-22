@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/add.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/style.css" rel="stylesheet">
     <style>
         body {
@@ -22,93 +24,152 @@
 
 <body>
 
-<div class="navDiv">
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper blue darken-3">
-                <a href="#" data-activates="mobile-demo" class="button-collapse">
-                    <i class="material-icons">Menu</i>
-                </a>
-                <ul class="left hide-on-med-and-down">
-                    <li id="user-name-desktop">Logged as: viewer</li>
-                </ul>
-                <ul class="right hide-on-med-and-down">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/page1">Page1</a>
-                    </li>
-                    <li>
-                        <a href="/page1">Page2</a>
-                    </li>
-                    <li>
-                        <a href="/page1">Page3</a>
-                    </li>
-                    <li id = "log-button-desktop" onClick="netlifyIdentity.open();">
-                        <a>Login</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+    <!-- Main menu -->
+    <div class="navDiv">
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper blue darken-3">
+                    <a href="#" data-activates="mobile-demo" class="button-collapse">
+                        <i class="material-icons">&#9776;</i>
+                    </a>
+                    <ul class="left hide-on-med-and-down">
+                        <li id="user-name-desktop">Logged as: viewer</li>
+                    </ul>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li id="add-button-desktop" style="display:none" data-bs-toggle="modal" data-bs-target="#form">
+                            <a>Add (+)</a>
+                        </li>
+                        <li id="sign-up-button-desktop" onClick="netlifyIdentity.open('signup');">
+                            <a>Sign up</a>
+                        </li>
+                        <li id="log-in-button-desktop" onClick="netlifyIdentity.open('login');">
+                            <a>Login</a>
+                        </li>
+                        <li id="log-out-button-desktop" style="display:none" onClick="netlifyIdentity.logout();">
+                            <a>Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <ul class="side-nav" id="mobile-demo">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li id="add-button-mobile" style="display:none" data-bs-toggle="modal" data-bs-target="#form">
+                <a>Add (+)</a>
+            </li>
+            <li>
+                <a href="/page1">Page3</a>
+            </li>
+            <li id="sign-up-button-mobile" onClick="netlifyIdentity.open('signup');">
+                <a>Sign up</a>
+            </li>
+            <li id="log-in-button-mobile" onClick="netlifyIdentity.open('login');">
+                <a>Login</a>
+            </li>
+            <li id="log-out-button-mobile" style="display:none" onClick="netlifyIdentity.logout();">
+                <a>Logout</a>
+            </li>
+            <li id="user-name-mobile">Logged as: viewer</li>
+        </ul>
     </div>
-    <ul class="side-nav" id="mobile-demo">
-        <li>
-            <a href="/">Home</a>
-        </li>
-        <li>
-            <a href="/page1">Page1</a>
-        </li>
-        <li>
-            <a href="/page1">Page2</a>
-        </li>
-        <li>
-            <a href="/page1">Page3</a>
-        </li>
-        <li id="log-in-button-mobile" onClick="netlifyIdentity.open();">
-            <a>Login</a>
-        </li>
-        <li id="user-name-mobile">Logged as: viewer</li>
-    </ul>
-</div>
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".button-collapse").sideNav();
-    })
-</script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".button-collapse").sideNav();
+        })
+    </script>
 
-<!-- List of tasks -->
-<h5 class="text-center my-3">Tasks</h5>
-<!-- div for list by script -->
-<div id="tasks"></div>
+    <!-- List of tasks
+    <h5 id="tasksName" class="text-center my-3">Tasks</h5>
+    -->
+    <!-- Modal -->
+    <form class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>For</p>
+                    <input type="text" class="form-control" name="" id="textInput">
+                    <div id="msg"> </div>
+                    <br>
+                    <p>Due Date</p>
+                    <input type="date" class="form-control" name="" id="dateInput">
+                    <br>
+                    <p>Description</p>
+                    <textarea name="" class="form-control" id="textarea" cols="30" rows="5"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="add" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- div for list by script -->
+    <div id="tasks"></div>
 
 </body>
 
 <!-- script for user name and LogIn\LogOut-->
-<script>
+<script type="module">
+    let user_name = 'viewer';
+    //import getTodos from "./main.js";
     if (window.netlifyIdentity) {
         const menu_user_name_desktop = document.getElementById("user-name-desktop");
         const menu_user_name_mobile = document.getElementById("user-name-mobile");
-        const menu_login_name_desktop = document.getElementById("log-button-desktop");
-        const menu_login_name_mobile = document.getElementById("log-in-button-mobile");
+
         window.netlifyIdentity.on("login", user => {
             if (user) {
-                menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerHTML = "Logged as: " + user.user_metadata.full_name;
-                menu_login_name_desktop.innerHTML = menu_login_name_mobile.innerText = "Log out";
+                menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerHTML
+                    = "Logged as: " + user.user_metadata.full_name;
+                document.getElementById("log-in-button-desktop").style.display = "none";
+                document.getElementById("log-in-button-mobile").style.display = "none";
+                document.getElementById("sign-up-button-desktop").style.display = "none";
+                document.getElementById("sign-up-button-mobile").style.display = "none";
+                document.getElementById("log-out-button-desktop").style.display = "block";
+                document.getElementById("log-out-button-mobile").style.display = "block";
+                document.getElementById("add-button-desktop").style.display = "block";
+                document.getElementById("add-button-mobile").style.display = "block";
+                user_name = user.user_metadata.full_name;
             }
         });
         window.netlifyIdentity.on("logout", user => {
             if (!user) {
                 menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerText = "Logged as: viewer";
-                menu_login_name_desktop.innerHTML = menu_login_name_mobile.innerText = "Login";
+                document.getElementById("log-in-button-desktop").style.display = "block";
+                document.getElementById("log-in-button-mobile").style.display = "block";
+                document.getElementById("sign-up-button-desktop").style.display = "block";
+                document.getElementById("sign-up-button-mobile").style.display = "block";
+                document.getElementById("log-out-button-desktop").style.display = "none";
+                document.getElementById("log-out-button-mobile").style.display = "none";
+                document.getElementById("add-button-desktop").style.display = "none";
+                document.getElementById("add-button-mobile").style.display = "none";
             }
         });
+        //window.netlifyIdentity.on("init", user => {
+        //    if (user) {
+        //        getTodos(user.user_metadata.full_name);
+        //    } else {
+
+        //    }
+        //});
     }
+
+
 </script>
 
 <!-- div for list by script -->
 <script src="main.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>
