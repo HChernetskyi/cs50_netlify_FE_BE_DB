@@ -1,13 +1,22 @@
-//let { createClient } = supabase;
-//let _supabase = createClient('https://ieyfgpklmrjyydtduzqd.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleWZncGtsbXJqeXlkdGR1enFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTU3MzM2NzAsImV4cCI6MjAxMTMwOTY3MH0.Aj88UhsBJ6NjJQW3Wfw6Z0mqfLFkkb9tIM22HYapJcI');
-
+//const { BASE_URL, BASE_KEY } = process.env;
+//import { createClient } from "@supabase/supabase-js";
+//const base_url = process.env.supabase_url;
+//const base_key = process.env.supabase_key;
+//const { createClient } = supabase;
+//const _supabase = createClient(base_url, base_key);
 //console.log('Supabase Instance: ', _supabase);
+//const process = require("process");
+//const base_url = process.env.supabase_url;
+//const base_url = process.env.SUPABASE_URL;
+
+const base_url = process.env.SUPABASE_URL;
+const baseKey = process.env.SUPABASE_KEY;
 
 let form = document.getElementById("form");
 let textInput = document.getElementById("textInput");
 let dateInput = document.getElementById("dateInput");
 let textarea = document.getElementById("textarea");
-let msg = document.getElementById("msg");
+//let msg = document.getElementById("msg");
 let tasks = document.getElementById("tasks");
 let add = document.getElementById("add");
 
@@ -18,20 +27,25 @@ form.addEventListener("submit", (e) => {
 
 let formValidation = () => {
     if (textInput.value === "") {
-        console.log("Field FOR is blank.");
+        console.log("Field FOR is blank. Tip was generated.");
         //msg.innerHTML = "Please, choose the executor :)";
-        textInput.placeholder.style = " color: red; "
         textInput.placeholder = "Please, choose the executor :)";
-    } else {
-        console.log("success");
-        msg.innerHTML = " ";
-        acceptData();
-        add.setAttribute("data-bs-dismiss", "modal");
-        add.click();
+    } else
+        if (textarea.value === "") {
+            console.log("Field DESCRIPTION is blank. Tip was generated.");
+            textarea.placeholder = "Please, type some description :)";
+        }
+            else {
+            console.log("success");
+           // msg.innerHTML = " ";
+            
+            acceptData();
+            add.setAttribute("data-bs-dismiss", "modal");
+            add.click();
 
-        (() => {
-            add.setAttribute("data-bs-dismiss", "");
-        })();
+            (() => {
+                add.setAttribute("data-bs-dismiss", "");
+            })();
     }
 };
 
