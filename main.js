@@ -1,16 +1,12 @@
-//const { BASE_URL, BASE_KEY } = process.env;
-//import { createClient } from "@supabase/supabase-js";
-//const base_url = process.env.supabase_url;
-//const base_key = process.env.supabase_key;
-//const { createClient } = supabase;
-//const _supabase = createClient(base_url, base_key);
-//console.log('Supabase Instance: ', _supabase);
-//const process = require("process");
-//const base_url = process.env.supabase_url;
-//const base_url = process.env.SUPABASE_URL;
+const { createClient } = supabase;
+const _supabase = createClient('https://ieyfgpklmrjyydtduzqd.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleWZncGtsbXJqeXlkdGR1enFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTU3MzM2NzAsImV4cCI6MjAxMTMwOTY3MH0.Aj88UhsBJ6NjJQW3Wfw6Z0mqfLFkkb9tIM22HYapJcI');
 
-const base_url = process.env.SUPABASE_URL;
-const baseKey = process.env.SUPABASE_KEY;
+netlifyIdentity.init();
+var user = netlifyIdentity.currentUser();
+var userName = "viewer";
+if (user != null) {
+    userName = user.user_metadata.full_name;
+}
 
 let form = document.getElementById("form");
 let textInput = document.getElementById("textInput");
@@ -28,30 +24,29 @@ form.addEventListener("submit", (e) => {
 let formValidation = () => {
     if (textInput.value === "") {
         console.log("Field FOR is blank. Tip was generated.");
-        //msg.innerHTML = "Please, choose the executor :)";
         textInput.placeholder = "Please, choose the executor :)";
-    } else
+    }
+    else 
         if (textarea.value === "") {
             console.log("Field DESCRIPTION is blank. Tip was generated.");
             textarea.placeholder = "Please, type some description :)";
         }
-            else {
-            console.log("success");
-           // msg.innerHTML = " ";
-            
-            acceptData();
-            add.setAttribute("data-bs-dismiss", "modal");
-            add.click();
+    else {
+        console.log("success");
+        //msg.innerHTML = "";
+        acceptData();
+        add.setAttribute("data-bs-dismiss", "modal");
+        add.click();
 
-            (() => {
-                add.setAttribute("data-bs-dismiss", "");
-            })();
+        (() => {
+            add.setAttribute("data-bs-dismiss", "");
+        })();
     }
 };
 
-let data = [{}];
+//let data = [{}];
 
-let acceptData = () => {
+let acceptData = async () => {
     //data.push({
     //    text: textInput.value,
     //    date: dateInput.value,
@@ -59,39 +54,60 @@ let acceptData = () => {
     //});
 
     //localStorage.setItem("data", JSON.stringify(data));
-
-    //console.log(data);
-    //createTasks();
+    if (!dateInput.value) {
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var today = year + "-" + month + "-" + day;
+        dateInput.value = today;
+    }
+    var { error } = await _supabase.from('jobs')
+        .insert(
+            {
+                created: userName,
+                description: textarea.value,
+                created_at: dateInput.value,
+                for: textInput.value
+            });
+    createTasks();
 };
 
-let createTasks = () => {
+let createTasks = async () => {
     tasks.innerHTML = "";
-    //data.map((x, y) => {
-    //    return (tasks.innerHTML += `
-    //<div id=${y}>
-    //      <span class="fw-bold">${x.text}</span>
-    //      <span class="small text-secondary">${x.date}</span>
-    //      <p>${x.description}</p>
+    var { data } = await _supabase.from('jobs').select();
+    data.map((x, y) => {
+        return (tasks.innerHTML += `
+    <div id=${x.id}>
+            ${x.id}
+          <span class="fw-bold">${x.created}</span>
+          <span class="small text-secondary">${x.created_at}</span>
+          <p>${x.description}</p>
   
-    //      <span class="options">
-    //        <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit"></i>
-    //        <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt"></i>
-    //      </span>
-    //    </div>
-    //`);
-    //});
-    tasks.innerHTML += `
-        <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit"></i>
-        <i onClick ="deleteTask(this); createTasks()" class="fas fa-trash-alt"></i>
-        `;
+          <span class="options">
+            <i onClick= "doneTask(this)" class="far fa-calendar-check" style='color:green'></i>
+            <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit" style='color:yellow'></i>
+            <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt" style='color:red'></i>
+          </span>
+        </div>
+    `);
+    });
+
     resetForm();
 };
 
-let deleteTask = (e) => {
+let deleteTask = async (e) => {
     e.parentElement.parentElement.remove();
     //data.splice(e.parentElement.parentElement.id, 1);
     //localStorage.setItem("data", JSON.stringify(data));
-    //console.log(data);
+
+    var { error } = await _supabase.from('jobs')
+        .delete()
+        .eq('id', e.parentElement.parentElement.id);
+    
+    //console.log();
 
 };
 
@@ -111,8 +127,11 @@ let resetForm = () => {
     textarea.value = "";
 };
 
-(() => {
+(async () => {
     //data = JSON.parse(localStorage.getItem("data")) || []
-    //console.log(data);
-    createTasks();
+    var { data, error } = await _supabase.from('jobs').select();
+        //.eq('created', userName)
+        //.order('id', { ascending: false });
+    console.log(data);
+    createTasks(data);
 })();

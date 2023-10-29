@@ -7,9 +7,9 @@
     <title>Chores!</title>
     <link href="/static/favicon.ico" rel="icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="/add.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/style.css" rel="stylesheet">
     <style>
@@ -23,8 +23,7 @@
 </head>
 
 <body>
-
-    <!-- Main menu -->
+<!-- Main menu -->
     <div class="navDiv">
         <div class="navbar-fixed">
             <nav>
@@ -63,7 +62,7 @@
                 <a>Add (+)</a>
             </li>
             <li>
-                <a href="/page1">Page3</a>
+                <a href="/page1">Page1</a>
             </li>
             <li id="sign-up-button-mobile" onClick="netlifyIdentity.open('signup');">
                 <a>Sign up</a>
@@ -85,9 +84,72 @@
         })
     </script>
 
-    <!-- List of tasks
-    <h5 id="tasksName" class="text-center my-3">Tasks</h5>
-    -->
+<!-- List of tasks
+<h5 id="tasksName" class="text-center my-3">Tasks</h5>
+-->
+
+    <!-- script for user name and LogIn\LogOut-->
+<script type="module">
+        if (window.netlifyIdentity) {
+            const menu_user_name_desktop = document.getElementById("user-name-desktop");
+            const menu_user_name_mobile = document.getElementById("user-name-mobile");
+            console.log("INFO: window.netlifyIdentity.");
+            if (user) {
+                console.log("INFO: user is not null.");
+                    menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerHTML
+                        = "Logged as: " + user.user_metadata.full_name;
+                    document.getElementById("log-in-button-desktop").style.display = "none";
+                    document.getElementById("log-in-button-mobile").style.display = "none";
+                    document.getElementById("sign-up-button-desktop").style.display = "none";
+                    document.getElementById("sign-up-button-mobile").style.display = "none";
+                    document.getElementById("log-out-button-desktop").style.display = "block";
+                    document.getElementById("log-out-button-mobile").style.display = "block";
+                    document.getElementById("add-button-desktop").style.display = "block";
+                    document.getElementById("add-button-mobile").style.display = "block";
+            } else {
+                console.log("INFO: user is null.");
+                    menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerText = "Logged as: viewer";
+                    document.getElementById("log-in-button-desktop").style.display = "block";
+                    document.getElementById("log-in-button-mobile").style.display = "block";
+                    document.getElementById("sign-up-button-desktop").style.display = "block";
+                    document.getElementById("sign-up-button-mobile").style.display = "block";
+                    document.getElementById("log-out-button-desktop").style.display = "none";
+                    document.getElementById("log-out-button-mobile").style.display = "none";
+                    document.getElementById("add-button-desktop").style.display = "none";
+                    document.getElementById("add-button-mobile").style.display = "none";
+                }
+            window.netlifyIdentity.on("login", user => {
+                if (user) {
+                    console.log("INFO: user is logged in.");
+                    menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerHTML
+                        = "Logged as: " + user.user_metadata.full_name;
+                    document.getElementById("log-in-button-desktop").style.display = "none";
+                    document.getElementById("log-in-button-mobile").style.display = "none";
+                    document.getElementById("sign-up-button-desktop").style.display = "none";
+                    document.getElementById("sign-up-button-mobile").style.display = "none";
+                    document.getElementById("log-out-button-desktop").style.display = "block";
+                    document.getElementById("log-out-button-mobile").style.display = "block";
+                    document.getElementById("add-button-desktop").style.display = "block";
+                    document.getElementById("add-button-mobile").style.display = "block";
+                }
+            });
+            window.netlifyIdentity.on("logout", user => {
+                if (!user) {
+                    console.log("INFO: user is logged out.");
+                    menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerText = "Logged as: viewer";
+                    document.getElementById("log-in-button-desktop").style.display = "block";
+                    document.getElementById("log-in-button-mobile").style.display = "block";
+                    document.getElementById("sign-up-button-desktop").style.display = "block";
+                    document.getElementById("sign-up-button-mobile").style.display = "block";
+                    document.getElementById("log-out-button-desktop").style.display = "none";
+                    document.getElementById("log-out-button-mobile").style.display = "none";
+                    document.getElementById("add-button-desktop").style.display = "none";
+                    document.getElementById("add-button-mobile").style.display = "none";
+                }
+            });
+        }
+    </script>
+
     <!-- Modal -->
     <form class="modal fade" id="form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -98,7 +160,7 @@
                 </div>
                 <div class="modal-body">
                     <p>For</p>
-                    <input type="text" class="form-control" name="forInput" id="textInput" autocomplete="true">
+                    <input type="text" class="form-control" name="" id="textInput" autocomplete="true">
                     <!-- <div id="msg"> </div> -->
                     <br>
                     <p>Due Date</p>
@@ -116,57 +178,9 @@
     </form>
 
     <!-- div for list by script -->
-                    <div id="tasks"></div>
+    <div id="tasks"></div>
 
 </body>
-
-<!-- script for user name and LogIn\LogOut-->
-<script type="module">
-    let user_name = 'viewer';
-    //import getTodos from "./main.js";
-    if (window.netlifyIdentity) {
-        const menu_user_name_desktop = document.getElementById("user-name-desktop");
-        const menu_user_name_mobile = document.getElementById("user-name-mobile");
-
-        window.netlifyIdentity.on("login", user => {
-            if (user) {
-                menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerHTML
-                    = "Logged as: " + user.user_metadata.full_name;
-                document.getElementById("log-in-button-desktop").style.display = "none";
-                document.getElementById("log-in-button-mobile").style.display = "none";
-                document.getElementById("sign-up-button-desktop").style.display = "none";
-                document.getElementById("sign-up-button-mobile").style.display = "none";
-                document.getElementById("log-out-button-desktop").style.display = "block";
-                document.getElementById("log-out-button-mobile").style.display = "block";
-                document.getElementById("add-button-desktop").style.display = "block";
-                document.getElementById("add-button-mobile").style.display = "block";
-                user_name = user.user_metadata.full_name;
-            }
-        });
-        window.netlifyIdentity.on("logout", user => {
-            if (!user) {
-                menu_user_name_desktop.innerHTML = menu_user_name_mobile.innerText = "Logged as: viewer";
-                document.getElementById("log-in-button-desktop").style.display = "block";
-                document.getElementById("log-in-button-mobile").style.display = "block";
-                document.getElementById("sign-up-button-desktop").style.display = "block";
-                document.getElementById("sign-up-button-mobile").style.display = "block";
-                document.getElementById("log-out-button-desktop").style.display = "none";
-                document.getElementById("log-out-button-mobile").style.display = "none";
-                document.getElementById("add-button-desktop").style.display = "none";
-                document.getElementById("add-button-mobile").style.display = "none";
-            }
-        });
-        //window.netlifyIdentity.on("init", user => {
-        //    if (user) {
-        //        getTodos(user.user_metadata.full_name);
-        //    } else {
-
-        //    }
-        //});
-    }
-
-
-</script>
 
 <!-- div for list by script -->
 <script src="main.js"></script>

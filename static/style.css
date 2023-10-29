@@ -50,3 +50,33 @@ tr:hover {
     max-height: 100%;
     background-color: revert;
 }
+
+#textInput::placeholder {
+    font-weight: bold;
+    opacity: 1;
+    font-style: italic;
+    color: red;
+}
+
+#textarea::placeholder {
+    font-weight: bold;
+    opacity: 1;
+    font-style: italic;
+    color: red;
+}
+
+.fa-plus {
+    background-color: #abcea1;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+#tasks div .options {
+    justify-self: center;
+    display: flex;
+    gap: 20px;
+}
+
+#tasks div .options i {
+    cursor: pointer;
+}
