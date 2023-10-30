@@ -12,7 +12,6 @@ let form = document.getElementById("form");
 let textInput = document.getElementById("textInput");
 let dateInput = document.getElementById("dateInput");
 let textarea = document.getElementById("textarea");
-//let msg = document.getElementById("msg");
 let tasks = document.getElementById("tasks");
 let add = document.getElementById("add");
 
@@ -31,29 +30,18 @@ let formValidation = () => {
             console.log("Field DESCRIPTION is blank. Tip was generated.");
             textarea.placeholder = "Please, type some description :)";
         }
-    else {
-        console.log("success");
-        //msg.innerHTML = "";
-        acceptData();
-        add.setAttribute("data-bs-dismiss", "modal");
-        add.click();
+        else {
+            acceptData();
+            add.setAttribute("data-bs-dismiss", "modal");
+            add.click();
 
-        (() => {
-            add.setAttribute("data-bs-dismiss", "");
-        })();
-    }
+            (() => {
+                add.setAttribute("data-bs-dismiss", "");
+            })();
+        }
 };
 
-//let data = [{}];
-
 let acceptData = async () => {
-    //data.push({
-    //    text: textInput.value,
-    //    date: dateInput.value,
-    //    description: textarea.value,
-    //});
-
-    //localStorage.setItem("data", JSON.stringify(data));
     if (!dateInput.value) {
         var date = new Date();
         var day = date.getDate();
@@ -72,43 +60,86 @@ let acceptData = async () => {
                 created_at: dateInput.value,
                 for: textInput.value
             });
+    if (error) {
+        console.log("Error due insert to DB: ", error);
+    }
     createTasks();
 };
 
 let createTasks = async () => {
     tasks.innerHTML = "";
-    var { data } = await _supabase.from('jobs').select();
+    
+    var { data, error } = await _supabase.from('jobs').select();
+    if (error) {
+        console.log("Error due read from DB: ", error);
+        data = [{}];
+    }
     data.map((x, y) => {
         return (tasks.innerHTML += `
-    <div id=${x.id}>
-            ${x.id}
+        <div id=${x.id}>
           <span class="fw-bold">${x.created}</span>
           <span class="small text-secondary">${x.created_at}</span>
-          <p>${x.description}</p>
-  
+          <span class="small text-primary">${x.description}</span>
+
           <span class="options">
             <i onClick= "doneTask(this)" class="far fa-calendar-check" style='color:green'></i>
             <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit" style='color:yellow'></i>
             <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt" style='color:red'></i>
           </span>
         </div>
-    `);
+        `);
     });
 
+    //let html =
+    //    `<table>
+    //        <thead> 
+    //            <tr>
+    //                <th>Job created by</th>
+    //                <th>Description</th>
+    //                <th>For</th>
+    //                <th>Created</th>
+    //                <th>Status</th>
+    //            </tr>
+    //        </thead>
+    //        <tbody>
+    //        `;
+
+    //data.map((x, y) => {
+    //    return (html += `
+    //        <div id=${x.id}>
+    //            <tr>
+                
+    //                <td>${x.created}</td>
+    //                <td>${x.description}</td>
+    //                <td>${x.for}</td>
+    //                <td>${x.created_at}</td>
+    //                <td>${x.status}
+    //                <span class="options">
+    //                    <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit" style='color:yellow'></i>
+    //                    <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt" style='color:red'></i>
+    //                </span>
+    //                </td>
+                   
+    //            </tr>
+    //            </div> 
+    //        `
+    //    );
+    //});
+            
+    //html +=`
+    //    </tbody>
+    //    </table>
+    //    `;
+
+    //tasks.innerHTML += html;
     resetForm();
 };
 
 let deleteTask = async (e) => {
     e.parentElement.parentElement.remove();
-    //data.splice(e.parentElement.parentElement.id, 1);
-    //localStorage.setItem("data", JSON.stringify(data));
-
     var { error } = await _supabase.from('jobs')
         .delete()
         .eq('id', e.parentElement.parentElement.id);
-    
-    //console.log();
-
 };
 
 let editTask = (e) => {
@@ -118,6 +149,7 @@ let editTask = (e) => {
     dateInput.value = selectedTask.children[1].innerHTML;
     textarea.value = selectedTask.children[2].innerHTML;
 
+    //TODO: updateTask();
     deleteTask(e);
 };
 
@@ -129,9 +161,9 @@ let resetForm = () => {
 
 (async () => {
     //data = JSON.parse(localStorage.getItem("data")) || []
-    var { data, error } = await _supabase.from('jobs').select();
+    //var { data, error } = await _supabase.from('jobs').select();
         //.eq('created', userName)
         //.order('id', { ascending: false });
-    console.log(data);
-    createTasks(data);
+    //console.log(data);
+    createTasks();
 })();
