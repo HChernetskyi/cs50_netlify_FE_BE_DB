@@ -84,14 +84,24 @@ let createTasks = async () => {
           <span class="small ">Date of creation: ${x.created_at}</span>
           <span class="big text-primary">${x.description}</span>
           <span class="options">
-            <i onClick= "doneTask(this);" class="far fa-calendar-check" style='color:green'></i>
+            <i onClick= "doneTask(this);createTasks()" class="far fa-calendar-check" style='color:green'></i>
             <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit" style='color:yellow'></i>
             <i onClick= "deleteTask(this);createTasks()" class="fas fa-trash-alt" style='color:red'></i>
           </span>
         </div>
         `);
     });
-
+    var elements = document.getElementsByClassName("options");
+    if (!user) {
+        for (var e of elements) {
+            e.style.display = "none";
+        }
+    }
+    //else {
+    //    for (var e of elements) {
+    //        e.style.display = "block";
+    //    }
+    //}
     //let html =
     //    `<table>
     //        <thead> 

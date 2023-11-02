@@ -131,6 +131,10 @@
                     document.getElementById("log-out-button-mobile").style.display = "block";
                     document.getElementById("add-button-desktop").style.display = "block";
                     document.getElementById("add-button-mobile").style.display = "block";
+                    var elements = document.getElementsByClassName("options");
+                    for (var e of elements) {
+                        e.style.display = "block";
+                    }
                 }
             });
             window.netlifyIdentity.on("logout", user => {
@@ -145,6 +149,10 @@
                     document.getElementById("log-out-button-mobile").style.display = "none";
                     document.getElementById("add-button-desktop").style.display = "none";
                     document.getElementById("add-button-mobile").style.display = "none";
+                    var elements = document.getElementsByClassName("options");
+                    for (var e of elements) {
+                        e.style.display = "none";
+                    }
                 }
             });
         }
