@@ -72,9 +72,10 @@ tr:hover {
 }
 
 .options {
-    justify-self: center;
+    justify-self: right;
     display: flex;
     gap: 40px;
+    font-size: 150%;
 }
 
 #tasks div .options i {
