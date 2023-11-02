@@ -69,9 +69,9 @@ let acceptData = async () => {
 let createTasks = async () => {
     tasks.innerHTML = "";
     
-    var { data, error } = await _supabase.from('jobs').select();
+    var { data, error } = await _supabase.from('jobs').select().eq('status', false);
 
-    var dataFromFunction = readFromDb();
+    /*var dataFromFunction = readFromDb();*/
 
     if (error) {
         console.log("Error due read from DB: ", error);
@@ -80,14 +80,13 @@ let createTasks = async () => {
     data.map((x, y) => {
         return (tasks.innerHTML += `
         <div id=${x.id}>
-          <span class="fw-bold">${x.created}</span>
-          <span class="small text-secondary">${x.created_at}</span>
-          <span class="small text-primary">${x.description}</span>
-
+          <span class="fw-bold">${x.for}</span>
+          <span class="small ">Date of creation: ${x.created_at}</span>
+          <span class="big text-primary">${x.description}</span>
           <span class="options">
-            <i onClick= "doneTask(this)" class="far fa-calendar-check" style='color:green'></i>
+            <i onClick= "doneTask(this);" class="far fa-calendar-check" style='color:green'></i>
             <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit" style='color:yellow'></i>
-            <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt" style='color:red'></i>
+            <i onClick= "deleteTask(this);createTasks()" class="fas fa-trash-alt" style='color:red'></i>
           </span>
         </div>
         `);
@@ -136,6 +135,14 @@ let createTasks = async () => {
 
     //tasks.innerHTML += html;
     resetForm();
+};
+
+let doneTask = async (e) => {
+    
+    var { error } = await _supabase.from('jobs')
+        .update({ status: true})
+        .eq('id', e.parentElement.parentElement.id);
+    e.parentElement.parentElement.remove();
 };
 
 let deleteTask = async (e) => {
