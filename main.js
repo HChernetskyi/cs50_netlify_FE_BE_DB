@@ -70,6 +70,9 @@ let createTasks = async () => {
     tasks.innerHTML = "";
     
     var { data, error } = await _supabase.from('jobs').select();
+
+    var dataFromFunction = readFromDb();
+
     if (error) {
         console.log("Error due read from DB: ", error);
         data = [{}];
