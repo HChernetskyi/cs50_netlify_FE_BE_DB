@@ -118,29 +118,29 @@ let createTasks = async () => {
 
     //data.map((x, y) => {
     //    return (html += `
-    //        <div id=${x.id}>
-    //            <tr>
+            //<div id=${x.id}>
+            //    <tr>
                 
-    //                <td>${x.created}</td>
-    //                <td>${x.description}</td>
-    //                <td>${x.for}</td>
-    //                <td>${x.created_at}</td>
-    //                <td>${x.status}
-    //                <span class="options">
-    //                    <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit" style='color:yellow'></i>
-    //                    <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt" style='color:red'></i>
-    //                </span>
-    //                </td>
+            //        <td>${x.created}</td>
+            //        <td>${x.description}</td>
+            //        <td>${x.for}</td>
+            //        <td>${x.created_at}</td>
+            //        <td>${x.status}
+            //        <span class="options">
+            //            <i onClick= "editTask(this)" data-bs-toggle="modal" data-bs-target="#form" class="fas fa-edit" style='color:yellow'></i>
+            //            <i onClick ="deleteTask(this);createTasks()" class="fas fa-trash-alt" style='color:red'></i>
+            //        </span>
+            //        </td>
                    
-    //            </tr>
-    //            </div> 
+            //    </tr>
+            //    </div> 
     //        `
     //    );
     //});
             
     //html +=`
-    //    </tbody>
-    //    </table>
+        //</tbody>
+        //</table>
     //    `;
 
     //tasks.innerHTML += html;

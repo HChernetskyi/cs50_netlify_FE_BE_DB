@@ -1,4 +1,4 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+//import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 exports.handler = async function readFromDb(event, context) {
     const { identity, user } = context.clientContext;
@@ -9,8 +9,16 @@ exports.handler = async function readFromDb(event, context) {
     
 
     if (user & supabaseKey & supabaseUrl) {
-        const _supabase = createClient(supabaseUrl, supabaseKey);
+        //const _supabase = createClient(supabaseUrl, supabaseKey);
         var { data, error } = await _supabase.from('jobs').select();
-        return data;
+        console.log(data);
+        if (error) {
+            console.log("Error due insert to DB: ", error);
+        }
     }
+
+    return {
+        statusCode: 200,
+        body: `Hello, ${supabaseUrl}!`
+    };
 };
