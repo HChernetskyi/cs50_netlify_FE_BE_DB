@@ -1,28 +1,21 @@
-//import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const { createClient } = require('@supabase/supabase-js');
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseUrl = process.env.SUPABASE_URL;
+const _supabase = createClient(supabaseUrl, supabaseKey);
 exports.handler = async function readFromDb(event, context) {
     const { identity, user } = context.clientContext;
-    const supabaseKey = process.env.SUPABASE_KEY;
-    const supabaseUrl = process.env.SUPABASE_URL;
-    // Do stuff and return a response...
+    var dataDB = [{}];
     
-    
+    let { data, error } = await _supabase.from('jobs').select(); //.neq('status', true)
+    //console.log(data);
+    //if (error) {
+    //    console.log("Error due insert to DB: ", error);
+    //}
+    dataDB = data;
 
-    if (user & supabaseKey & supabaseUrl) {
-        //const _supabase = createClient(supabaseUrl, supabaseKey);
-        var { data, error } = await _supabase.from('jobs').select();
-        console.log(data);
-        if (error) {
-            console.log("Error due insert to DB: ", error);
-        }
-    }
-    
-    return {
-        statusCode: 200,
-        headers: {
-            "Content-Type": "text/html"
-        },
-        body: `
-        <!DOCTYPE html>
+    var html = "";
+    html += `
+    <!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="utf-8">
@@ -31,6 +24,10 @@ exports.handler = async function readFromDb(event, context) {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
             <style>
                 body {
+                    background-image: url('https://img.freepik.com/free-photo/adhesive-notes-fridge_23-2147696020.jpg');
+                    background-repeat: no-repeat;
+                    background-attachment: fixed;
+                    background-size: cover;
                     }
 
                 table {
@@ -55,6 +52,18 @@ exports.handler = async function readFromDb(event, context) {
                     background-color: #D6EEEE;
                 }
 
+                #done {
+                    background-color: green
+                }
+
+                #deleted {
+                    background-color: red
+                }
+
+                #progress {
+                    background-color: yellow
+                }
+
             </style>
         </head>
 
@@ -67,48 +76,71 @@ exports.handler = async function readFromDb(event, context) {
                                 <i class="material-icons">&#9776;</i>
                             </a>
                             <ul class="right hide-on-med-and-down">
-                                <li><a href="/">Home</a></li>
+                                <li><a href="/">Main page</a></li>
                             </ul>
                         </div>
                     </nav>
                 </div>
             <ul class="side-nav" id="mobile-demo">
-                <li><a href="/">Home</a></li>
+                <li><a href="/">Main page</a></li>
             </ul>
         </div>
                 <table>
                     <thead>
                         <tr>
-                            <th>Job created by</th>
+                            <th>Job created by user</th>
                             <th>Description</th>
                             <th>For</th>
                             <th>Created</th>
                             <th>Status</th>
                         </tr>
                     </thead>
-
                     <tbody>
-                        <div id=1>
-                        <tr>
-                            <td>created</td>
-                            <td>description</td>
-                            <td>for</td>
-                            <td>created_at</td>
-                            <td>status2</td>
-                        </tr>
-                        </div>
-                    </tbody>
-                </table>
-            
-                <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                    $(".button-collapse").sideNav();
-                    })
-                </script>
-            </body>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        </html>
-        ` };
+                    `;
+
+    dataDB.map((x, y) => {
+        let status = 'Deleted';
+        let jobStatusId = 'deleted';
+        if (x.status === true) {
+            status = 'In progress';
+            jobStatusId = 'progress';
+        } else if (x.status === false) {
+            status = 'Done';
+            jobStatusId = 'done';
+        }
+        return (html += `
+                <div >
+                <tr id = ${jobStatusId}>
+                    <td>${x.created}</td>
+                    <td>${x.description}</td>
+                    <td>${x.for}</td>
+                    <td>${x.date}</td>
+                    <td>${status}
+                </tr>
+                </div> 
+                `
+        );
+    });
+
+    html += `
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+            $(".button-collapse").sideNav();
+            })
+        </script>
+                </tbody>
+            </table>
+        </body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        </html>`;
+
+    return {
+        statusCode: 200,
+        headers: {
+            "Content-Type": "text/html"
+        },
+        body: `${html}`
+    };
 };

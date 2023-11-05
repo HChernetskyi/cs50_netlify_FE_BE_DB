@@ -8,6 +8,7 @@
     <link href="/static/favicon.ico" rel="icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <link href="/static/style.css" rel="stylesheet">
     <style>
         body {
@@ -28,13 +29,13 @@
                         <i class="material-icons">Menu</i>
                     </a>
                     <ul class="right hide-on-med-and-down">
-                        <li> <a href="/">Home</a> </li>
+                        <li> <a href="/">Main page</a> </li>
                     </ul>
                 </div>
             </nav>
         </div>
         <ul class="side-nav" id="mobile-demo">
-            <li> <a href="/">Home</a> </li>
+            <li> <a href="/">Main page</a> </li>
         </ul>
 
         <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -47,29 +48,75 @@
         </script>
 
     </div>
+    <div id="tasks"></div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Job created by</th>
-                <th>Description</th>
-                <th>For</th>
-                <th>Created</th>
-                <th>Status</th>
-            </tr>
-        </thead>
+    <script>
+        let data = [{}];
+        let tasks = document.getElementById("tasks");
 
-        <tbody>
-            <div id=1>
-            <tr>
-                <td>created</td>
-                <td>description</td>
-                <td>for</td>
-                <td>created_at</td>
-                <td>status</td>
-            </tr>
-            </div>
+    // read from DB : NOT SECURE!
+    var { createClient } = supabase;
+    var _supabase = createClient('https://ieyfgpklmrjyydtduzqd.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlleWZncGtsbXJqeXlkdGR1enFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTU3MzM2NzAsImV4cCI6MjAxMTMwOTY3MH0.Aj88UhsBJ6NjJQW3Wfw6Z0mqfLFkkb9tIM22HYapJcI');
+
+    async function getTodos() {
+        let { data, error } = await _supabase.from('jobs')
+            .select(); //.neq('status', true)
+
+        if (error) {
+            console.log("Error due read from DB: ", error);
+            data = [{}];
+        }
+        return data;
+    }
+
+    getTodos().then((data) => {
+        
+        let html = `
+                <table>
+                        <thead>
+                            <tr>
+                                <th>Job created by user</th>
+                                <th>Description</th>
+                                <th>For</th>
+                                <th>Created</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+        data.map((x, y) => {
+            let status = 'Deleted';
+            let jobStatus = 'job_status_id_deleted';
+            let jobStatusId = 'deleted';
+            if (x.status === true) {
+                status = 'In progress';
+                jobStatusId = 'progress';
+                jobStatus = 'job_status_id_progress';
+            } else if (x.status === false) {
+                status = 'Done';
+                jobStatusId = 'done';
+                jobStatus = 'job_status_id_done';
+            }
+            return (html += `
+                <div >
+                    <tr id=${jobStatusId}>
+                        <td>${x.created}</td>
+                        <td>${x.description}</td>
+                        <td>${x.for}</td>
+                        <td>${x.date}</td>
+                        <td id=${jobStatus}>${status}
+                    </tr>
+                    </div>
+            `);
+        });
+        html += `
         </tbody>
-    </table>
+        </table>
+        `;
+        tasks.innerHTML = html;
+    });
+    </script>
+
 </body>
 </html>

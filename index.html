@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -36,13 +35,13 @@
                     </ul>
                     <ul class="right hide-on-med-and-down">
                         <li>
-                            <a href="/">Home</a>
+                            <a href="/">Main page</a>
                         </li>
                         <li>
-                            <a href="/history">Closed tasks</a>
+                            <a href="/history">History page</a>
                         </li>
                         <li>
-                            <a href="/read">HISTORY</a>
+                            <a href="/read">History function</a>
                         </li>
                         <li id="add-button-desktop" style="display:none" data-bs-toggle="modal" data-bs-target="#form">
                             <a>Add (+)</a>
@@ -62,16 +61,16 @@
         </div>
         <ul class="side-nav" id="mobile-demo">
             <li>
-                <a href="/">Home</a>
+                <a href="/">Main page</a>
             </li>
             <li id="add-button-mobile" style="display:none" data-bs-toggle="modal" data-bs-target="#form">
                 <a>Add (+)</a>
             </li>
             <li>
-                <a href="/history">Closed tasks</a>
+                <a href="/history">History page</a>
             </li>
             <li>
-                <a href="/read">HISTORY</a>
+                <a href="/read">History function</a>
             </li>
             <li id="sign-up-button-mobile" onClick="netlifyIdentity.open('signup');">
                 <a>Sign up</a>
@@ -93,11 +92,7 @@
         })
     </script>
 
-<!-- List of tasks
-<h5 id="tasksName" class="text-center my-3">Tasks</h5>
--->
-
-    <!-- script for user name and LogIn\LogOut-->
+<!-- script for user name and LogIn\LogOut-->
 <script type="module">
         if (window.netlifyIdentity) {
             const menu_user_name_desktop = document.getElementById("user-name-desktop");
@@ -178,7 +173,6 @@
                 <div class="modal-body">
                     <p>For</p>
                     <input type="text" class="form-control" name="" id="textInput" autocomplete="true">
-                    <!-- <div id="msg"> </div> -->
                     <br>
                     <p>Due Date</p>
                     <input type="date" class="form-control" name="" id="dateInput">
@@ -187,7 +181,7 @@
                     <textarea name="" class="form-control" id="textarea" cols="30" rows="5"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="closeButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" id="add" class="btn btn-primary">Add</button>
                 </div>
             </div>
@@ -201,6 +195,5 @@
 
 <!-- div for list by script -->
 <script src="main.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>

@@ -31,7 +31,7 @@ tr:hover {
 #job_status_id_progress {
     color: fuchsia;
     font-weight: bold;
-    
+    text-align: center;
 }
 
 #job_status_id_progress:hover {
@@ -66,9 +66,9 @@ tr:hover {
 }
 
 .options {
-    justify-self: right;
+    justify-self: center;
     display: flex;
-    gap: 40px;
+    gap: 100px;
     font-size: 150%;
 }
 
@@ -88,4 +88,16 @@ tr:hover {
     padding: 5px;
     display: grid;
     gap: 4px;
+}
+
+#done {
+    background-color: green;
+}
+
+#deleted {
+    background-color: red;
+}
+
+#progress {
+    background-color: yellow;
 }
