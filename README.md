@@ -53,17 +53,15 @@ List of used documentations:
   - Freecodecamp docs (https://www.freecodecamp.org/news/learn-crud-operations-in-javascript-by-building-todo-app/) 
 
 How it should work )
-	You are not a registered user:
+	- You are not a registered user:
 		- Go to the main page. Here you can see the list of previous added jobs. These 'tasks' are not completed yet. 
 		- Go to the 'history' page. There are all completed tasks.
 		- That's all. You only can view tasks, without do any interact with them. You might sign up/log in to interact with them
-
-	You are registered user and you are logged in:
+	- You are registered user and you are logged in:
 		- Go to the main page. Here you can see the list of previous added jobs. These 'tasks' are not completed yet. You can 'complete' some of them, edit or delete them.
-		Also you can add new task.
+		- Also you can add new task.
 		- Go to the 'history' page. Here you can see all completed tasks.
-
-	There are two 'history' pages - realized as classic HTML page and as Netlify function (serverless backend endpoint). 
+	- There are two 'history' pages - realized as classic HTML page and as Netlify function (serverless backend endpoint). 
 Netlify function uses secret environment variables for get access to the online based database.
 
 This project is for educational purposes only! 
