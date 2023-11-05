@@ -1,5 +1,5 @@
 # CS50-Chores
-#### Video Demo:  <URL HERE>
+#### Video Demo:  <https://drive.google.com/file/d/13lLuJgiiCLA93B0VmACbvYPsZtj83Yv2/view?usp=sharing>
 #### Description:
 Final project for CS50 which uses HTML, JS, Netlify Functions (aka AWS Lambda) and remote DB 
 
